@@ -7,7 +7,7 @@ pipeline{
     }
 
     stages{
-        stage("Get Current Directory"){
+        stage("Deploy Confluent Kafka Platform on AWS EC2 Instances"){
             steps{
                 script {
                     echo "========Get Current Directory========="
