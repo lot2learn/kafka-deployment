@@ -13,7 +13,7 @@ pipeline{
                     echo "========Get Current Directory========="
                     kafkaInstall.getCurrDir()
                     echo "========Installing Zookeeper and Kafka Broker========="
-                    kafkaInstall.ansibleDeploy 'all' 'hosts.yml' 'main.yml'
+                    kafkaInstall.ansibleDeploy('all', 'hosts.yml', 'main.yml')
                 }
             }
         }
