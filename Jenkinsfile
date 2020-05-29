@@ -1,3 +1,4 @@
+@Library('shared-library-ansible-01@master')
 pipeline{
     agent{
         label "master"
