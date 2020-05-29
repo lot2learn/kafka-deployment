@@ -1,4 +1,4 @@
-@Library('shared-library-ansible-01') _
+@Library('shared-library-ansible') _
 
 pipeline{
 
@@ -11,9 +11,9 @@ pipeline{
             steps{
                 script {
                     echo "========Get Current Directory========="
-                    kafkaInstall.getCurrDir
+                    kafkaInstall.getCurrDir()
                     echo "========Installing Zookeeper and Kafka Broker========="
-                    kafkaInstall.ansibleDeploy 'all' 'hosts.yml' 'main.yml'
+                    kafkaInstall.ansibleDeploy('all', 'hosts.yml', 'main.yml')
                 }
             }
         }
