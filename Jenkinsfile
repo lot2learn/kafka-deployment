@@ -7,7 +7,7 @@ pipeline{
     }
 
     stages{
-        stage("Deploy Confluent Kafka Platform on AWS EC2 Instances"){
+        stage("Deploy Confluent Kafka Platform on AWS EC2 Instances") {
             steps{
                 script {
                     echo "========Get Current Directory========="
@@ -15,6 +15,12 @@ pipeline{
                     echo "========Installing Zookeeper and Kafka Broker========="
                     kafkaInstall.ansibleDeploy('all', 'hosts.yml', 'main.yml')
                 }
+            }
+        }
+
+        stage("Check Logs for WARNING") {
+            steps {
+                filterLogs (3)
             }
         }
     }
