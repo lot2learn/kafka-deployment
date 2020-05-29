@@ -20,6 +20,7 @@ pipeline{
 
         stage("Check Logs for WARNING") {
             steps {
+                echo "============Checking for any WARNING(s)==============="
                 filterLogs (3)
             }
         }
