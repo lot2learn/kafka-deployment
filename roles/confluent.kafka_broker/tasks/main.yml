@@ -1,0 +1,8 @@
+---
+# tasks file for confluent.kafka_broker
+- include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"
+
+- set_fact:
+    kafka_role_completed: true
+

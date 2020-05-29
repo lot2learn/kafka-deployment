@@ -1,0 +1,7 @@
+# Maintained by Ansible Playbook
+{% for key, value in zookeeper.properties.items() %}
+{{key}}={{value}}
+{% endfor %}
+{% for host  in groups['zookeeper'] %}
+server.{{ hostvars[host]['zookeeper_id'] | default(groups.zookeeper.index(host) + 1)}}={{ zookeeper_current_node_hostname if host == inventory_hostname else host }}:{{zookeeper_peer_port}}:{{zookeeper_leader_port}}
+{% endfor %}

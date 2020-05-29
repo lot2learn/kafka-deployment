@@ -1,0 +1,63 @@
+---
+- name: Adding RPM Key
+  rpm_key:
+      key: https://packages.confluent.io/rpm/5.4/archive.key # required. Key that will be modified. Can be a url, a file, or a keyid if the key already exists in the database.
+      state: present # not required. choices: absent;present. If the key will be imported or removed from the rpm db.
+
+- name: Adding Confluent Dist Repo
+  yum_repository:
+    name: Confluent.dist
+    file: confluent
+    description: "Confluent Distribution Repository"
+    baseurl: https://packages.confluent.io/rpm/5.4/7
+    gpgkey: https://packages.confluent.io/rpm/5.4/archive.key
+    gpgcheck: 1
+    enabled: 1
+
+- name: Adding Confluent Yum Repo
+  yum_repository:
+    name: Confluent
+    file: confluent
+    description: "Confluent Yum Repository"
+    baseurl: https://packages.confluent.io/rpm/5.4
+    gpgkey: https://packages.confluent.io/rpm/5.4/archive.key
+    gpgcheck: 1
+    enabled: 1
+
+- name: Installing Curl, Zip, Wget
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ common_packages }}"
+
+- name: Installing Java
+  yum:
+    name: java
+    state: present
+    
+# Installing Confluent-Kafka Platform and Confluent-Server Packages
+- name: Installing Confluent-Kafka Packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - confluent-platform-2.12
+    - confluent-server
+
+# Creating Kafka User and required Groups
+- name: Create Kafka group
+  group:
+      name: confluent # required. Name of the group to manage.
+      state: present # not required. choices: absent;present. Whether the group should be present or not on the remote host.
+
+- name: Create Kafka User
+  user:
+      name: cp-kafka # required. Name of the user to create, remove or modify.
+      comment: Kafka User # not required. Optionally sets the description (aka I(GECOS)) of user account.
+      create_home: yes # not required. Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.,Changed from C(createhome) to C(create_home) in version 2.5.
+      group: confluent # not required. Optionally sets the user's primary group (takes a group name).
+      shell: /bin/bash # not required. Optionally set the user's shell.,On macOS, before version 2.5, the default shell for non-system users was /usr/bin/false. Since 2.5, the default shell for non-system users on macOS is /bin/bash.
+      system: yes # not required. When creating an account C(state=present), setting this to C(yes) makes the user a system account. This setting cannot be changed on existing users.
+      state: present # not required. choices: absent;present. Whether the account should exist or not, taking action if the state is different from what is stated.
+
+

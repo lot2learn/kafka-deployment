@@ -1,0 +1,8 @@
+---
+# tasks file for confluent.zookeeper
+# Pre-setup steps
+- include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"
+
+- set_fact:
+    zookeeper_role_completed: true

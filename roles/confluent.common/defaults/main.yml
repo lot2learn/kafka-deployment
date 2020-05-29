@@ -1,0 +1,10 @@
+---
+# defaults file for confluent.common
+common_packages:
+  - curl
+  - wget
+  - zip
+  - unzip
+
+kafka_user: cp-kafka
+kafka_group: confluent

@@ -1,0 +1,6 @@
+---
+# handlers file for confluent.zookeeper
+- name: start zookeeper
+  systemd:
+    name: "{{zookeeper_service_name}}"
+    state: started

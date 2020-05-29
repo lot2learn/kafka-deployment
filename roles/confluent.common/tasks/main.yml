@@ -1,0 +1,8 @@
+---
+# tasks file for confluent.common
+# Pre-setup steps
+- include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"
+
+- set_fact:
+    common_role_completed: true
