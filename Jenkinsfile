@@ -7,11 +7,18 @@ pipeline{
     }
 
     stages{
+        stage("Get Current Directory"){
+            steps{
+                echo "========Get Current Directory========="
+                kafkaInstall.getCurrDir()
+            }
+        }
+        
+    stages{
         stage("Install Zookeeper and Kafka Broker"){
             steps{
-                echo "========Installing Zookeeper and Kafka Broker========"
-                checkpwd()
-                zookeeperInstall('all', 'hosts.yml', 'main.yml')
+                echo "========Installing Zookeeper and Kafka Broker========="
+                kafkaInstall.ansibleDeploy('all', 'hosts.yml', 'main.yml')
             }
         }
     }
