@@ -11,7 +11,7 @@ pipeline{
             steps{
                 script {
                     echo "========Get Current Directory========="
-                    kafkaInstall.getCurrDir
+                    kafkaInstall.getCurrDir()
                     echo "========Installing Zookeeper and Kafka Broker========="
                     kafkaInstall.ansibleDeploy 'all' 'hosts.yml' 'main.yml'
                 }
