@@ -13,8 +13,6 @@ pipeline{
                 kafkaInstall.getCurrDir()
             }
         }
-        
-    stages{
         stage("Install Zookeeper and Kafka Broker"){
             steps{
                 echo "========Installing Zookeeper and Kafka Broker========="
