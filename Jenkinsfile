@@ -1,4 +1,4 @@
-@Library('shared-library-ansible-01') _
+@Library('shared-library-ansible') _
 
 pipeline{
 
