@@ -10,7 +10,7 @@ pipeline{
         stage("Install Zookeeper and Kafka Broker"){
             steps{
                 echo "========Installing Zookeeper and Kafka Broker========"
-                zookeeperInstall('hosts.yml', 'main.yml')
+                zookeeperInstall('all', 'hosts.yml', 'main.yml')
             }
         }
     }
