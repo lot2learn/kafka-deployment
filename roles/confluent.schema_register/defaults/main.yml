@@ -1,2 +1,11 @@
 ---
 # defaults file for confluent.schema_register
+schema_registry_service_name: confluent-schema-registry
+schema_registry:
+  debug: False
+  kafkastore.topic: _schemas
+  listeners: http://0.0.0.0:8081
+  # host.name: ec2-13-127-161-119.ap-south-1.compute.amazonaws.com
+  inter.instance.protocol: http
+  # kafkastore.bootstrap.servers=ec2-13-126-79-6.ap-south-1.compute.amazonaws.com:9092,ec2-13-127-116-113.ap-south-1.compute.amazonaws.com:9092,ec2-13-127-161-119.ap-south-1.compute.amazonaws.com:9092
+  kafkastore.security.protocol: PLAINTEXT

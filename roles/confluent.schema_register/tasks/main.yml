@@ -1,2 +1,7 @@
 ---
 # tasks file for confluent.schema_register
+- include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"
+
+- set_fact:
+    schema_registry_role_completed: true
