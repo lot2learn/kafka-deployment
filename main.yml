@@ -16,3 +16,9 @@
   tasks:
   - import_role:
       name: confluent.kafka_broker
+
+- name: Installing Schema Registry
+  hosts: schema_registry
+  tasks:
+  - import_role:
+      name: confluent.schema_registry
