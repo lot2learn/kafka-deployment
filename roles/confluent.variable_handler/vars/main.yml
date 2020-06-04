@@ -3,5 +3,6 @@ kafka_group: confluent
 zookeeper_service_name: confluent-zookeeper
 kafka_broker_service_name: confluent-server
 kafka:
+  kafka_broker_port: 9092
   properties:
     zookeeper_client_port: 2181

@@ -1,8 +1,0 @@
-# Maintained by Ansible
-{% for key, value in schema_registry.items() %}
-{{key}}={{value}}
-{% endfor %}}
-{% for host in groups['schema-registry'] %}
-host.name={{inventory_hostname}}
-kafka.bootstrap.servers={% for host in groups["kafka_broker"] %}{% if loop.index > 1 %},{% endif %}{{host}}:{{kafka.properties.zookeeper_client_port}}{%endfor%}
-#-----END-----#

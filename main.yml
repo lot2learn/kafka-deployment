@@ -21,4 +21,4 @@
   hosts: schema_registry
   tasks:
   - import_role:
-      name: confluent.schema_registry
+      name: confluent.schema_register
