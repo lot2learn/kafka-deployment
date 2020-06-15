@@ -1,0 +1,5 @@
+# Maintained by Ansible Playbooks
+bootstrap.servers={% for host in groups['kafka_broker'] %}{% if loop.index > 1%},{% endif %}{{ host }}:{{ kafka.kafka_broker_port}}{% endfor %}
+{% for key,value in kafka_connect.properties.items() %}
+{{key}}={{value}}
+{% endfor %}
