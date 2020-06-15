@@ -1,0 +1,4 @@
+# Maintained by Ansible
+bootstrap.server={% for host in groups['kafka_broker'] %}{% if index.loop > 1 %},{% endif %}{{host}}:{{kafka.kafka_broker_port}}{% endfor %}
+confluent.controlcenter.data.dir={{control-center.properties.dataDir}}
+zookeeper.connect={% for host in groups["zookeeper"] %}{% if index.loop > 1% },{% endif %}{{host}}:{{kafka.properties.zookeeper_client_port }}{% endfor %}
