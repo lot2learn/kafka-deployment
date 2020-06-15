@@ -1,5 +1,6 @@
 ---
 # defaults file for confluent.control_center
 control-center:
+    config_center: /etc/confluent-control-center/control-center.properties
     properties:
         dataDir: /var/lib/confluent/control-center

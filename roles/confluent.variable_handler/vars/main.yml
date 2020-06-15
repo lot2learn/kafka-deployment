@@ -2,6 +2,7 @@ kafka_user: cp-kafka
 kafka_group: confluent
 zookeeper_service_name: confluent-zookeeper
 kafka_broker_service_name: confluent-server
+control_center_service_name: confluent-control-center
 kafka:
   kafka_broker_port: 9092
   properties:
