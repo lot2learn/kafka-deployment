@@ -1,2 +1,5 @@
 ---
 # defaults file for confluent.control_center
+control-center:
+    properties:
+        dataDir: /var/lib/confluent/control-center
