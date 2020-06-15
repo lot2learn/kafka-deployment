@@ -1,2 +1,7 @@
 ---
-# tasks file for confluent.kafka_connect
+# tasks file for confluent.control_center
+- include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"
+
+- set_fact:
+    control_center_role_completed: true

@@ -22,3 +22,15 @@
   tasks:
   - import_role:
       name: confluent.schema_register
+
+- name: Installing Schema Registry
+  hosts: kafka_connect
+  tasks:
+  - import_role:
+      name: confluent.kafka_connect
+
+- name: Installing Schema Registry
+  hosts: control_center
+  tasks:
+  - import_role:
+      name: confluent.control_center
