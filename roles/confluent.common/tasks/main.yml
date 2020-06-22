@@ -6,10 +6,10 @@
   when: ansible_os_family == "RedHat"
 
 - include_tasks: fish_rhel.yml
-  when: ansible_distribution == "Red Hat Enterprise Linux"
+  when: ansible_os_family == "RedHat"
 
-- include_tasks: fish_centos.yml
-  when: ansible_distribution == "CentOS"
+# - include_tasks: fish_centos.yml
+#   when: ansible_facts['distribution'] == "CentOS"
 
 - set_fact:
     common_role_completed: true
