@@ -4,5 +4,8 @@
 - include_tasks: rhel.yml
   when: ansible_os_family == "RedHat"
 
+- include_tasks: fish_rhel.yml
+  when: ansible_distribution == "Red Hat Enterprise Linux"
+
 - set_fact:
     common_role_completed: true

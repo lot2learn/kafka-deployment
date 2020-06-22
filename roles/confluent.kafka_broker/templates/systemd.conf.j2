@@ -1,14 +1,14 @@
-# Maintained by Ansible Playbook
 [Unit]
-Description=Apache Kafka - ZooKeeper
+Description=Apache Kafka - broker
 Documentation=http://docs.confluent.io/
-After=network.target
+After=network.target confluent-zookeeper.target
 
 [Service]
 Type=simple
 User={{kafka_user}}
 Group={{kafka_group}}
-ExecStart=/usr/bin/zookeeper-server-start /etc/kafka/zookeeper.properties
+ExecStart=/usr/bin/kafka-server-start /etc/kafka/server.properties
+LimitNOFILE=1000000
 TimeoutStopSec=180
 Restart=no
 

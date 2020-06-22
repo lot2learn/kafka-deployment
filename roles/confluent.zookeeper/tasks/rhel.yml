@@ -33,7 +33,17 @@
   notify:
     - start zookeeper
 
+- name: Create Zookeeper Systemd File
+  template:
+      dest: /usr/lib/systemd/system/confluent-zookeeper.service
+      src: systemd.conf.j2
+      owner: root
+      group: root
+      mode: 0644
+
 - name: start zookeeper
   systemd:
     name: "{{zookeeper_service_name}}"
+    enabled: true
+    daemon_reload: yes
     state: restarted
