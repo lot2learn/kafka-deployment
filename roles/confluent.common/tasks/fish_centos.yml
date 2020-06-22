@@ -1,0 +1,21 @@
+---
+    - name: Adding Confluent Yum Repo
+      yum_repository:
+        name: Fish shell - 2.x release series (CentOS_7)
+        file: shells:fish:release:2
+        description: "Fish shell - 2.x release series (CentOS_7)"
+        baseurl: http://download.opensuse.org/repositories/shells:/fish:/release:/2/CentOS_7
+        gpgkey: http://download.opensuse.org/repositories/shells:/fish:/release:/2/CentOS_7/repodata/repomd.xml.key
+        gpgcheck: 1
+        enabled: 1
+      
+    - name: Installing Fish Shell
+      yum:
+        name: fish
+        state: present
+    
+    - name: Adding Fish Shell in the /etc/shells file
+      lineinfile:
+          path: /etc/shells # required. The file to modify.,Before 2.3 this option was only usable as I(dest), I(destfile) and I(name).
+          insertbefore: BOF # not required. choices: BOF;*regex*. Used with C(state=present). If specified, the line will be inserted before the last match of specified regular expression. If the first match is required, use(firstmatch=yes). A value is available; C(BOF) for inserting the line at the beginning of the file. If specified regular expression has no matches, the line will be inserted at the end of the file. If regular expressions are passed to both C(regexp) and C(insertbefore), C(insertbefore) is only honored if no match for C(regexp) is found. May not be used with C(backrefs).
+          line: "/usr/bin/fish" # not required. Required for C(state=present). The line to insert/replace into the file. If C(backrefs) is set, may contain backreferences that will get expanded with the C(regexp) capture groups if the regexp matches.

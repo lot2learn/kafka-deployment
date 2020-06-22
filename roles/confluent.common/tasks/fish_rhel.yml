@@ -5,7 +5,7 @@
     file: shells:fish:release:3
     description: "Fish shell - 3.x release series (RHEL_7) Repo"
     baseurl: https://download.opensuse.org/repositories/shells:/fish:/release:/3/RHEL_7
-    gpgkey: =https://download.opensuse.org/repositories/shells:/fish:/release:/3/RHEL_7/repodata/repomd.xml.key
+    gpgkey: https://download.opensuse.org/repositories/shells:/fish:/release:/3/RHEL_7/repodata/repomd.xml.key
     gpgcheck: 1
     enabled: 1
   
