@@ -36,4 +36,4 @@
 - name: start zookeeper
   systemd:
     name: "{{zookeeper_service_name}}"
-    state: started
+    state: restarted

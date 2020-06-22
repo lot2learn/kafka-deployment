@@ -1,20 +1,23 @@
 ---
 # defaults file for confluent.kafka_connect
-kafka-connect:
+kafka_connect:
   config_file: /etc/kafka/connect-distributed.properties
   properties:
-    group.id: connect-cluster
+    group.id: 1
     key.converter: org.apache.kafka.connect.json.JsonConverter
     value.converter: org.apache.kafka.connect.json.JsonConverter
     key.converter.schemas.enable: true
     value.converter.schemas.enable: true
     offset.storage.topic: connect-offsets
-    offset.storage.replication.factor: 1
+    offset.storage.replication.factor: 2
     config.storage.topic: connect-configs
-    config.storage.replication.factor: 1
+    config.storage.replication.factor: 2
     status.storage.topic: connect-status
-    status.storage.replication.factor: 1
+    status.storage.replication.factor: 2
     offset.flush.interval.ms: 10000
     plugin.path: /usr/share/java
     consumer.interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
     producer.interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+    rest.advertised.listener: http
+    rest.advertised.port: 8083
+    rest.port: 8083

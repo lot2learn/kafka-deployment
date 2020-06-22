@@ -11,4 +11,4 @@
   systemd:
       name: "{{schema_registry_service_name}}" # not required. Name of the service. When using in a chroot environment you always need to specify the full name i.e. (crond.service).
       enabled: true # not required. Whether the service should start on boot. B(At least one of state and enabled are required.)
-      state: started # not required. choices: reloaded;restarted;started;stopped. C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.
+      state: restarted # not required. choices: reloaded;restarted;started;stopped. C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.

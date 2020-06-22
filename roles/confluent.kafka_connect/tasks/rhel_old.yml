@@ -1,0 +1,14 @@
+---
+- name: Creating Configuration file for Kafka Connect
+  template:
+    dest: "{{kafka-connect.config_file}}"
+    src: connect-distributed.properties.j2
+    owner: "{{kafka_user}}"
+    group: "{{kafka_group}}"
+    mode: 0640
+
+- name: Starting the Kafka Connect Service
+  systemd:
+    name: "{{kafka_connect_service_name}}"
+    enabled: true
+    state: started
