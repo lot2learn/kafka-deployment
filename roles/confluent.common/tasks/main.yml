@@ -6,7 +6,7 @@
   when: ansible_os_family == "RedHat"
 
 - include_tasks: fish_rhel.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts['distribution'] == "RedHat"
 
 - include_tasks: fish_centos_8.yml
   when: ansible_facts['distribution'] == "CentOS"
