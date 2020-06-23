@@ -60,4 +60,8 @@
       system: yes # not required. When creating an account C(state=present), setting this to C(yes) makes the user a system account. This setting cannot be changed on existing users.
       state: present # not required. choices: absent;present. Whether the account should exist or not, taking action if the state is different from what is stated.
 
+- name: Stopping Firewalld Service
+  systemd:
+      name: firewalld # not required. Name of the service. When using in a chroot environment you always need to specify the full name i.e. (crond.service).
+      state: stopped # not required. choices: reloaded;restarted;started;stopped. C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.
 
