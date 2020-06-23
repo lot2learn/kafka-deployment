@@ -8,13 +8,16 @@
 - include_tasks: fish_rhel.yml
   when: ansible_os_family == "RedHat"
 
-- name: Getting Distribution
-  shell: cat /etc/redhat-release
-  register: release
+- include_tasks: fish_centos_8.yml
   when: ansible_facts['distribution'] == "CentOS"
 
-- include_tasks: fish_centos_8.yml
-  when: release == "CentOS Linux release 8.1.1911 (Core)"
+# - name: Getting Distribution
+#   shell: cat /etc/redhat-release
+#   register: release
+#   when: ansible_facts['distribution'] == "CentOS"
+
+# - include_tasks: fish_centos_8.yml
+#   when: release == "CentOS Linux release 8.1.1911 (Core)"
 
 - set_fact:
     common_role_completed: true
