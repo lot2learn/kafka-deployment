@@ -5,11 +5,11 @@
 - include_tasks: rhel.yml
   when: ansible_os_family == "RedHat"
 
-- include_tasks: fish_rhel.yml
-  when: ansible_facts['distribution'] == "RedHat"
+# - include_tasks: fish_rhel.yml
+#   when: ansible_facts['distribution'] == "RedHat"
 
-- include_tasks: fish_centos_8.yml
-  when: ansible_facts['distribution'] == "CentOS"
+# - include_tasks: fish_centos_8.yml
+#   when: ansible_facts['distribution'] == "CentOS"
 
 # - name: Getting Distribution
 #   shell: cat /etc/redhat-release
