@@ -1,4 +1,3 @@
-https://download.opensuse.org/repositories/shells:/fish/CentOS_8/shells:fish.repo
 ---
 - name: Adding Confluent Yum Repo
   yum_repository:
