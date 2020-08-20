@@ -1,0 +1,25 @@
+---
+# tasks file for ssl_CA
+- name: Installing Java
+  yum:
+    name: java
+    state: present
+- name: install openssl
+  yum:
+    name: openssl
+    state: present
+- name: create ssl certificate directory
+  file:
+    path: /var/ssl/private
+    state: directory
+    mode: 0755
+- name: create ssl certs
+  script: scripts/certs-create.sh
+  args:
+    chdir: /var/ssl/private
+    creates: /var/ssl/private/broker.keystore.jks
+- name: copy ssl related files to local ansible host
+  synchronize:
+    src: /var/ssl/private/
+    dest: generated_ssl_files
+    mode: pull

@@ -1,0 +1,17 @@
+[Unit]
+Description=Logstash
+Documentation=https://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=LS_HOME={{ls_directory}}
+Environment=PID_DIR=/var/run/logstash
+
+User={{ls_user}}
+Group={{ls_group}}
+
+ExecStart={{ls_directory}}/bin/logstash -f {{ls_config_file}}
+
+[Install]
+WantedBy=multi-user.target

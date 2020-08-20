@@ -5,6 +5,9 @@
 - include_tasks: rhel.yml
   when: ansible_os_family == "RedHat"
 
+- import_tasks: ssl_certs.yml
+  when: security_mode == "ssl"
+
 # - include_tasks: fish_rhel.yml
 #   when: ansible_facts['distribution'] == "RedHat"
 

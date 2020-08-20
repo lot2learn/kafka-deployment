@@ -1,0 +1,9 @@
+---
+# defaults file for elasticsearch
+es_directory: /opt/elasticsearch
+es_download_url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.8.0-linux-x86_64.tar.gz
+es_user: elasticsearch
+es_group: elasticsearch
+es_start_cmd: /opt/elasticsearch/bin/elasticsearch -p ${PID_DIR}/elasticsearch.pid --quiet
+es_systemd_file: /usr/lib/systemd/system/elasticsearch.service
+es_service_name: elasticsearch.service

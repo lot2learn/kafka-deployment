@@ -1,0 +1,65 @@
+---
+- name: Create Elastic Search Group
+  group:
+    name: "{{es_group}}" # required. Name of the group to manage.
+    state: present # not required. choices: absent;present. Whether the group should be present or not on the remote host.
+    system: yes # not required. If I(yes), indicates that the group created is a system group.
+
+- name: Create Elasticsearch User
+  user:
+    name: "{{es_user}}" # required. Name of the user to create, remove or modify.
+    comment: "Elasticsearch User" # not required. Optionally sets the description (aka I(GECOS)) of user account.
+    create_home: yes # not required. Unless set to C(no), a home directory will be made for the user when the account is created or if the home directory does not exist.,Changed from C(createhome) to C(create_home) in version 2.5.
+    generate_ssh_key: yes # not required. Whether to generate a SSH key for the user in question. This will B(not) overwrite an existing SSH key.
+    group: "{{es_group}}" # not required. Optionally sets the user's primary group (takes a group name).
+    shell: /bin/bash # not required. Optionally set the user's shell.,On macOS, before version 2.5, the default shell for non-system users was /usr/bin/false. Since 2.5, the default shell for non-system users on macOS is /bin/bash.
+    state: present # not required. choices: absent;present. Whether the account should exist or not, taking action if the state is different from what is stated.
+
+- name: Checking if the directory exists
+  stat:
+    path: "{{es_directory}}" # required. The full path of the file/object to get the facts of.
+  register: es_dir
+
+- name: Creating Elastic Search Directory
+  file:
+    path: "{{es_directory}}" # required. Path to the file being managed.
+    group: "{{es_group}}" # not required. Name of the group that should own the file/directory, as would be fed to I(chown).
+    state: directory # not required. choices: absent;directory;file;hard;link;touch. If C(directory), all intermediate subdirectories will be created if they do not exist. Since Ansible 1.7 they will be created with the supplied permissions. If C(file), the file will NOT be created if it does not exist; see the C(touch) value or the M(copy) or M(template) module if you want that behavior.  If C(link), the symbolic link will be created or changed. Use C(hard) for hardlinks. If C(absent), directories will be recursively deleted, and files or symlinks will be unlinked. Note that C(absent) will not cause C(file) to fail if the C(path) does not exist as the state did not change. If C(touch) (new in 1.4), an empty file will be created if the C(path) does not exist, while an existing file or directory will receive updated file access and modification times (similar to the way `touch` works from the command line).
+    mode: 0755 # not required. Mode the file or directory should be. For those used to I(/usr/bin/chmod) remember that modes are actually octal numbers. You must either add a leading zero so that Ansible's YAML parser knows it is an octal number (like C(0644) or C(01777)) or quote it (like C('644') or C('1777')) so Ansible receives a string and can do its own conversion from string into number.  Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results. As of version 1.8, the mode may be specified as a symbolic mode (for example, C(u+rwx) or C(u=rw,g=r,o=r)).
+    owner: "{{es_user}}" # not required. Name of the user that should own the file/directory, as would be fed to I(chown).
+  when: es_dir.stat.exists == False
+
+# - name: Downloading the Elastic Search Package
+#   get_url:
+#       dest: "{{es_directory}}" # required. Absolute path of where to download the file to.,If C(dest) is a directory, either the server provided filename or, if none provided, the base name of the URL on the remote server will be used. If a directory, C(force) has no effect.,If C(dest) is a directory, the file will always be downloaded (regardless of the C(force) option), but replaced only if the contents changed..
+#       url: "{{es_download_url}}" # required. HTTP, HTTPS, or FTP URL in the form (http|https|ftp)://[user[:pass]]@host.domain[:port]/path
+#       owner: "{{es_user}}" # not required. Name of the user that should own the file/directory, as would be fed to I(chown).
+#       group: "{{es_group}}" # not required. Name of the group that should own the file/directory, as would be fed to I(chown).
+#       mode: 0750 # not required. Mode the file or directory should be. For those used to I(/usr/bin/chmod) remember that modes are actually octal numbers. You must either add a leading zero so that Ansible's YAML parser knows it is an octal number (like C(0644) or C(01777)) or quote it (like C('644') or C('1777')) so Ansible receives a string and can do its own conversion from string into number.  Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results. As of version 1.8, the mode may be specified as a symbolic mode (for example, C(u+rwx) or C(u=rw,g=r,o=r)).
+
+- name: Downloading the Elasticsearch directory and unarchiving
+  unarchive:
+    src: "{{es_download_url}}" # required. If C(remote_src=no) (default), local path to archive file to copy to the target server; can be absolute or relative. If C(remote_src=yes), path on the target server to existing archive file to unpack.,If C(remote_src=yes) and C(src) contains C(://), the remote machine will download the file from the URL first. (version_added 2.0). This is only for simple cases, for full download support use the M(get_url) module.
+    dest: "{{es_directory}}" # required. Remote absolute path where the archive should be unpacked.
+    group: "{{es_group}}" # not required. Name of the group that should own the file/directory, as would be fed to I(chown).
+    remote_src: yes # not required. Set to C(yes) to indicate the archived file is already on the remote system and not local to the Ansible controller.,This option is mutually exclusive with C(copy).
+#   creates: undefined # not required. If the specified absolute path (file or directory) already exists, this step will B(not) be run.
+    mode: 0750 # not required. Mode the file or directory should be. For those used to I(/usr/bin/chmod) remember that modes are actually octal numbers. You must either add a leading zero so that Ansible's YAML parser knows it is an octal number (like C(0644) or C(01777)) or quote it (like C('644') or C('1777')) so Ansible receives a string and can do its own conversion from string into number.  Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results. As of version 1.8, the mode may be specified as a symbolic mode (for example, C(u+rwx) or C(u=rw,g=r,o=r)).
+    owner: "{{es_user}}" # not required. Name of the user that should own the file/directory, as would be fed to I(chown).
+    extra_opts: 
+    - --strip-components=1
+    
+- name: Creating the systemd configuration file
+  template:
+    dest: "{{es_systemd_file}}" # required. Location to render the template to on the remote machine.
+    src: systemd.j2 # required. Path of a Jinja2 formatted template on the Ansible controller. This can be a relative or absolute path.
+    owner: root # not required. Name of the user that should own the file/directory, as would be fed to I(chown).
+    group: root # not required. Name of the group that should own the file/directory, as would be fed to I(chown).
+    mode: 0644 # not required. Mode the file or directory should be. For those used to I(/usr/bin/chmod) remember that modes are actually octal numbers.  You must either add a leading zero so that Ansible's YAML parser knows it is an octal number (like C(0644) or C(01777)) or quote it (like C('644') or C('1777')) so Ansible receives a string and can do its own conversion from string into number.  Giving Ansible a number without following one of these rules will end up with a decimal number which will have unexpected results.  As of version 1.8, the mode may be specified as a symbolic mode (for example, C(u+rwx) or C(u=rw,g=r,o=r)).  As of version 2.6, the mode may also be the special string C(preserve).  C(preserve) means that the file will be given the same permissions as the source file.
+
+- name: Starting the service
+  systemd:
+    name: "{{es_service_name}}" # not required. Name of the service. When using in a chroot environment you always need to specify the full name i.e. (crond.service).
+    enabled: true # not required. Whether the service should start on boot. B(At least one of state and enabled are required.)
+    daemon_reload: true # not required. run daemon-reload before doing any other operations, to make sure systemd has read any changes.
+    state: restarted # not required. choices: reloaded;restarted;started;stopped. C(started)/C(stopped) are idempotent actions that will not run commands unless necessary. C(restarted) will always bounce the service. C(reloaded) will always reload.

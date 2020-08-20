@@ -1,0 +1,4 @@
+---
+# tasks file for elasticsearch
+- include_tasks: rhel.yml
+  when: ansible_os_family == "RedHat"

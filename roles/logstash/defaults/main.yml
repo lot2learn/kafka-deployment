@@ -1,0 +1,10 @@
+---
+# defaults file for logstash
+ls_directory: /opt/logstash 
+ls_download_url: https://artifacts.elastic.co/downloads/logstash/logstash-7.8.0.tar.gz
+ls_user: logstash
+ls_group: logstash
+ls_start_cmd: /opt/elasticsearch/bin/logstash -f /opt/logstash/etc/logstash.conf
+ls_systemd_file: /usr/lib/systemd/system/logstash.service
+ls_service_name: logstash.service
+ls_config_file: /opt/logstash/logstash.conf

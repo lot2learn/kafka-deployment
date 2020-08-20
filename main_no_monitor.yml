@@ -41,18 +41,3 @@
   - import_role:
       name: confluent.control_center
 
-- name: Installing Logstash
-  hosts: logstash
-  tasks:
-  - import_role:
-      name: logstash
-  tags:
-  - logstash
-
-- name: Installing Elasticsearch
-  hosts: elasticsearch
-  tasks:
-  - import_role:
-      name: elasticsearch
-  tags:
-  - elasticsearch

@@ -5,7 +5,7 @@ After=network.target confluent-server.target
 
 [Service]
 Type=simple
-User=cp-kafka-connect
+User={{kafka_user}}
 Group={{kafka_group}}
 ExecStart=/usr/bin/connect-distributed /etc/kafka/connect-distributed.properties
 TimeoutStopSec=180
