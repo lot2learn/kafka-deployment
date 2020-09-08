@@ -14,6 +14,7 @@ pipeline{
                     git log --format="medium" -1 ${env.GIT_COMMIT}
                     git log -1 --pretty=%B
                     git log -1 --pretty=%B ${env.GIT_COMMIT}
+                    git log -1 ${env.GIT_COMMIT}
                     echo "---BRANCH---"
                     echo ${env.GIT_BRANCH}
                     git branch
