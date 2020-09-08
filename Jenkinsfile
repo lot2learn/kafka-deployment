@@ -10,6 +10,7 @@ pipeline{
         stage("Deploy Confluent Kafka Platform on AWS EC2 Instances...") {
             steps{
                 script {
+                    git log --format="medium" -1 ${env.GIT_COMMIT}
                     echo "========Get Current Directory========="
                     kafkaInstall.getCurrDir()
                     echo "========Installing Zookeeper and Kafka Broker========="
