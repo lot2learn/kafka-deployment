@@ -13,7 +13,7 @@ pipeline{
                     echo "BRANCH:"
                     echo "${env.GIT_BRANCH}"
                     gitBranch = env.GIT_BRANCH.toLower()
-                    if (gitBranch.contains('20')) {
+                    if (env.GIT_BRANCH.toLowerCase().contains('20')) {
                         println env.GIT_BRANCH
                     }
                     echo "========Get Current Directory========="
