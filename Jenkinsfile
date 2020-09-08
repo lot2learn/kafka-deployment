@@ -12,7 +12,7 @@ pipeline{
                 script {
                     echo "BRANCH:"
                     echo "${env.GIT_BRANCH}"
-                    gitBranch = env.GIT_BRANCH.toLower()
+                    gitBranch = env.GIT_BRANCH.toLowerCase()
                     if (env.GIT_BRANCH.toLowerCase().contains('20')) {
                         println env.GIT_BRANCH
                     }
