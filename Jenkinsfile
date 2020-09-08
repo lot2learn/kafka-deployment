@@ -10,6 +10,8 @@ pipeline{
         stage("Deploy Confluent Kafka Platform on AWS EC2 Instances") {
             steps{
                 script {
+                    echo "BRANCH:"
+                    echo "${env.GIT_BRANCH}"
                     echo "========Get Current Directory========="
                     kafkaInstall.getCurrDir()
                     echo "========Installing Zookeeper and Kafka Broker========="
