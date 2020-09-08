@@ -12,6 +12,8 @@ pipeline{
                 script {
                     sh """
                     git log --format="medium" -1 ${env.GIT_COMMIT}
+                    git log -1 --pretty=%B
+                    git log -1 --pretty=%B ${env.GIT_COMMIT}
                     """
                     echo "========Get Current Directory========="
                     kafkaInstall.getCurrDir()
